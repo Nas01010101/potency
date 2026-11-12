@@ -1,6 +1,6 @@
-# Vouch for the Patch, Not the Person
+# Potency: An Open-Source Gemma 4 Harness That Checks Whether a Patch Is Complete
 
-*Potency: a Gemma 4 harness that ranks the files tied to an edit by a joined import and commit-history graph, and refuses submission until each of the top five is changed or explained to the maintainer*
+*It ranks the files tied to an edit by a joined import and commit-history graph, and refuses submission until each of the top five is changed or explained to the maintainer*
 
 ## Abstract
 

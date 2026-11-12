@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.png" alt="Potency: vouch for the patch, not the person" width="100%"></p>
+<p align="center"><img src="assets/banner.png" alt="Potency: an open-source coding-agent harness for Gemma 4" width="100%"></p>
 
 <p align="center">
   <a href="paper/potency.pdf">Paper</a>
@@ -160,7 +160,7 @@ uv run --with pytest python -m pytest -q tests
 
 ```bibtex
 @misc{potency2026,
-  title  = {Potency: Vouch for the Patch, Not the Person},
+  title  = {Potency: An Open-Source Gemma 4 Harness That Checks Whether a Patch Is Complete},
   author = {{The Potency team}},
   year   = {2026},
   note   = {Kaggle Gemma 4 Developer Agent, paper track},
