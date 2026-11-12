@@ -1,0 +1,14 @@
+{
+ "sympy__sympy-13877": {
+  "resolved": true,
+  "patch_applied": true
+ },
+ "sphinx-doc__sphinx-8551": {
+  "resolved": true,
+  "patch_applied": true
+ },
+ "pydata__xarray-6938": {
+  "resolved": true,
+  "patch_applied": true
+ }
+}

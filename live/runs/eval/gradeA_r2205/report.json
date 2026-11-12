@@ -1,0 +1,18 @@
+{
+ "pylint-dev__pylint-6386": {
+  "resolved": false,
+  "patch_applied": true
+ },
+ "sphinx-doc__sphinx-8120": {
+  "resolved": true,
+  "patch_applied": true
+ },
+ "pytest-dev__pytest-8399": {
+  "resolved": true,
+  "patch_applied": true
+ },
+ "sympy__sympy-16597": {
+  "resolved": false,
+  "patch_applied": true
+ }
+}

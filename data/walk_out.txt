@@ -1,0 +1,30 @@
+
+preds: 354 unresolved partial runs over 64 tasks
+method
+walk@0.5+bm25     0.585
+gate              0.582
+walk@0.15+bm25    0.534
+bm25_issue        0.398
+walk@0.5          0.384
+cochange          0.362
+imports           0.342
+walk@0.15         0.325
+walk@0.15 minus gate: -0.257 [-0.357, -0.158]
+walk@0.15+bm25 minus gate: -0.048 [-0.158, +0.056]
+walk@0.5 minus gate: -0.198 [-0.290, -0.116]
+walk@0.5+bm25 minus gate: +0.003 [-0.112, +0.108]
+
+preds_open: 426 unresolved partial runs over 69 tasks
+method
+walk@0.5+bm25     0.624
+walk@0.15+bm25    0.585
+gate              0.580
+walk@0.5          0.415
+bm25_issue        0.399
+cochange          0.378
+imports           0.350
+walk@0.15         0.347
+walk@0.15 minus gate: -0.232 [-0.322, -0.144]
+walk@0.15+bm25 minus gate: +0.005 [-0.086, +0.099]
+walk@0.5 minus gate: -0.164 [-0.243, -0.090]
+walk@0.5+bm25 minus gate: +0.045 [-0.044, +0.138]

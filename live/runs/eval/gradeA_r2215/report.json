@@ -1,0 +1,18 @@
+{
+ "pydata__xarray-3305": {
+  "resolved": true,
+  "patch_applied": true
+ },
+ "scikit-learn__scikit-learn-12682": {
+  "resolved": false,
+  "patch_applied": true
+ },
+ "pylint-dev__pylint-4661": {
+  "resolved": false,
+  "patch_applied": true
+ },
+ "pydata__xarray-6992": {
+  "resolved": false,
+  "patch_applied": true
+ }
+}

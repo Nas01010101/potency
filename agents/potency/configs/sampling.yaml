@@ -1,0 +1,8 @@
+# v5 sampling with tighter caps. In v5 runs 8% of steps (>1024 tokens) held 52% of decode tokens,
+# mostly thinking loops that ran to the 4096 budget (~135 s at 30 tok/s) or the 8192 output cap.
+temperature: 0.2
+top_p: 0.95
+max_output_tokens: 3072
+thinking_config:
+  thinking_budget: 1024
+  include_thoughts: true

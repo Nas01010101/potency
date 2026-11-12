@@ -1,0 +1,16 @@
+live/.vllm_key
+__pycache__/
+.pytest_cache/
+*.pyc
+data/*
+!data/walk_rows.csv
+!data/walk_out.txt
+live/runs/*
+!live/runs/bind_all.jsonl
+!live/runs/audit_all.jsonl
+!live/runs/eval/
+live/runs/eval/*
+!live/runs/eval/grade*/
+!live/runs/eval/gold/
+live/runs/eval/*/*
+!live/runs/eval/*/report.json
