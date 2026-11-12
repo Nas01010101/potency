@@ -26,7 +26,7 @@ for s in ('top', 'right', 'left'):
 ax.tick_params(axis='y', length=0)
 ax.xaxis.grid(True, color='#e6e6e6', linewidth=0.8)
 ax.set_axisbelow(True)
-ax.annotate('+0.18 over BM25\n95% CI excludes 0 in both sets', xy=(0.585, 3.0), xytext=(0.60, 1.9),
+ax.annotate('1.45x BM25 (+0.18)\n95% CI excludes 0 in both sets\nabove BM25 for all 17 harnesses', xy=(0.585, 3.0), xytext=(0.60, 1.9),
             fontsize=9, color='#333333', ha='left',
             arrowprops=dict(arrowstyle='-', color='#888888', lw=0.8))
 ax.legend(frameon=False, loc='lower center', ncol=2, fontsize=9, bbox_to_anchor=(0.5, 1.0))
