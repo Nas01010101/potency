@@ -39,6 +39,8 @@ Potency takes one issue to one patch plus a report. It is a single agent with sh
 
 *Table 2. Harness layers.*
 
+![Potency architecture](https://raw.githubusercontent.com/Nas01010101/potency/main/assets/architecture.png)
+
 On inference-time compute, extra graph hops buy nothing (§6.2), and the check spends agent steps where the repository points.
 
 ## 3. A file graph that joins imports with history
