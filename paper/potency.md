@@ -26,7 +26,7 @@ The check targets a measured failure. On the 71 SWE-bench Verified tasks whose r
 
 ## 2. Potency
 
-Potency takes one issue to one patch plus a report. It is a single agent with shell, read, edit and submit tools (the SWE-agent contract, Yang et al. 2024), configured for Gemma 4 31B. We changed four layers of the harness and left two alone.
+Potency takes one issue to one patch plus a report. It is a single agent with shell, read, edit and submit tools (the SWE-agent contract, Yang et al. 2024), configured for Gemma 4 31B.
 
 | Layer | What Potency does | Evidence in this paper |
 |---|---|---|
@@ -59,7 +59,7 @@ At the first submit, the harness sends one message. It lists each expected file 
 
 The **change report** is rendered from the same data with no model call: one row per expected file with its evidence and status (Figure 1). `python -m potency.report` produces it for any patch on any Python repository and exits non-zero while a file is unanswered, so a project can run it in CI on incoming pull requests whoever wrote them.
 
-A reason is the agent's own claim. `potency/audit.py` sends each one to a second, small model, Gemma 4 E4B, with the issue, the diff, and the lines of the skipped file that mention the names the diff changes. E4B answers HOLDS or DOUBT with a short note printed beside the reason. We serve E4B on one L40S through any OpenAI-compatible server.
+A reason is the agent's own claim. `potency/audit.py` sends each one to a second, small model, Gemma 4 E4B, with the issue, the diff, and the lines of the skipped file that mention the names the diff changes. E4B answers HOLDS or DOUBT with a short note printed beside the reason. We serve E4B on one L40S.
 
 ## 5. A missing-file benchmark
 
@@ -143,9 +143,9 @@ We know of no harness that makes the repository's record binding at submit and w
 
 ## 8. Limitations and falsifiers
 
-No maintainer has read the report, so we claim nothing about review time or merge rates. The replay scores against the reference patch; a valid fix can use other files, so a hit is a proxy for a useful prompt. The live run uses one model and one scaffold, and has no control arm. The import graph is Python-only and the history edges need a full clone. On a complete patch the check still costs the agent five looks and the maintainer five lines.
+No maintainer has read the report, so we claim nothing about review time. Hits are scored against the reference patch, a proxy that overcounts misses (§6.3). The replay seeds on final patches; the live check fires at the first submit. The 17 submissions mostly use Claude models, so they are not independent. The live run has one model, one scaffold, one sample per task, no control arm, and 31 graded tasks. The import graph is Python-only and history edges need a full clone. On a complete patch the check costs the agent five looks and the maintainer five lines.
 
-The claims would be falsified by: a harness in which one-step fusion does not beat issue BM25; a larger graded run in which the binding check loses more resolved patches than it gains (here it lost and gained none); or maintainers rating reports with reasons no more useful than a bare diff.
+The claims would be falsified by: a harness in which one-step fusion does not beat issue BM25; a larger graded run in which the check loses more resolved patches than it gains (here it lost and gained none); or maintainers rating reports with reasons no more useful than a bare diff.
 
 ## 9. Reproducibility
 

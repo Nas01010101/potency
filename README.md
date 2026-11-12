@@ -1,8 +1,43 @@
-# Potency
+<p align="center"><img src="assets/banner.png" alt="Potency: vouch for the patch, not the person" width="100%"></p>
 
-A coding-agent harness for open-source issue fixing, built for Gemma 4 31B. Before the agent submits, Potency lists up to 5 files that the repository's import graph, its commit history before the base commit, and the issue text tie to the files the agent edited. The submission is refused until each listed file is changed or the agent writes one line saying why it needs no change. The answers are rendered as a change report for the maintainer.
+<p align="center">
+  <a href="paper/potency.pdf">Paper</a>
+</p>
 
-The paper is in `paper/potency.md` (PDF: `paper/potency.pdf`).
+<p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT">
+  <img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/model-Gemma%204%2031B-8e75ff" alt="Gemma 4 31B">
+  <img src="https://img.shields.io/badge/runtime%20deps-none-lightgrey" alt="no runtime dependencies">
+</p>
+
+Potency is a coding-agent harness for open-source issue fixing, built for Gemma 4 31B. Before the agent submits, it lists up to 5 files that the repository's import graph, its commit history before the base commit, and the issue text tie to the files the agent edited. The submission is refused until each listed file is changed or the agent writes one line saying why it needs no change. The answers become a change report for the maintainer.
+
+## Quickstart
+
+```bash
+git clone https://github.com/Nas01010101/potency && cd potency
+pip install -e .                      # standard library only
+git -C /path/to/repo diff > edit.diff
+potency gate   --repo /path/to/repo --base HEAD --issue issue.txt --patch edit.diff
+potency report --repo /path/to/repo --base HEAD --issue issue.txt --patch edit.diff --reasons reasons.json
+pip install -e '.[live]'              # mini-swe-agent, for the live agent loop
+MSA=/path/to/mini-swe-agent VLLM_BASE=https://<your-vllm> potency run --workers 20 --out live/runs/bind.jsonl
+```
+
+`potency report` exits 1 while a listed file has neither a change nor a reason, so it can gate a pull request in CI.
+
+## What Potency says to the agent
+
+On the first submit:
+
+> The repository ties these files to the ones you edited, and you did not touch them: `<path>` (linked to `<edited>` by an import), `<path>` (changed with `<edited>` in 6 of its last 9 commits) ... For each file: open it and grep it for the names you changed. Then either change it, or write one line in your reply in exactly this form: `REASON <path>: <why this file needs no change>`. Your submission is accepted only when every listed file is in the patch or has a REASON line.
+
+If the agent resubmits with a file unanswered (at most twice, 10 more steps each):
+
+> Submission refused. These files have neither a change in the patch nor a REASON line: ... Change each one or write its REASON line, then submit again.
+
+The maintainer gets one row per listed file: the evidence (import, co-change count, issue match), and whether the agent edited it, left it with a reason, or left it unanswered. A second model, Gemma 4 E4B, marks each reason HOLDS or DOUBT.
 
 ## Harness layers
 
@@ -121,6 +156,18 @@ Pinned versions: mini-swe-agent 2.4.6, swebench 4.1.0 (grading), modal 1.6.4, vl
 uv run --with pytest python -m pytest -q tests
 ```
 
+## Citation
+
+```bibtex
+@misc{potency2026,
+  title  = {Potency: Vouch for the Patch, Not the Person},
+  author = {{The Potency team}},
+  year   = {2026},
+  note   = {Kaggle Gemma 4 Developer Agent, paper track},
+  url    = {https://github.com/Nas01010101/potency}
+}
+```
+
 ## License
 
-MIT
+MIT, see `LICENSE`.

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "potency"
+version = "0.1.0"
+description = "Coding-agent harness that refuses a patch until the files its imports and history tie to the edit are changed or explained"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+live = ["mini-swe-agent==2.4.6", "pandas", "pyarrow", "pyyaml"]
+grade = ["swebench==4.1.0", "modal==1.6.4", "datasets"]
+test = ["pytest"]
+
+[project.scripts]
+potency = "potency.cli:main"
+
+[tool.setuptools]
+packages = ["potency"]

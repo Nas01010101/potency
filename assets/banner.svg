@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <radialGradient id="bg" cx="0.8" cy="0.15" r="1.2">
+      <stop offset="0" stop-color="#4f9ff0"/><stop offset="0.35" stop-color="#1f56c4"/>
+      <stop offset="0.7" stop-color="#0a2470"/><stop offset="1" stop-color="#040b26"/>
+    </radialGradient>
+    <linearGradient id="gem" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#6FB0FF"/><stop offset="0.55" stop-color="#A98CF2"/><stop offset="1" stop-color="#F07C8A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg)"/>
+  <!-- the rest of the repository: faint files and links -->
+  <g stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.2" fill="none">
+    <path d="M900 70 L1000 40 M1023.6 159.8 L1110 90 M1023.6 159.8 L1150 250 M976.4 305.2 L1080 360 M823.6 305.2 L790 380 M823.6 305.2 L700 330 M776.4 159.8 L690 80 M900 70 L690 80"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.28">
+    <circle cx="1000" cy="40" r="4"/><circle cx="1110" cy="90" r="4"/><circle cx="1150" cy="250" r="4"/>
+    <circle cx="1080" cy="360" r="4"/><circle cx="790" cy="380" r="4"/><circle cx="700" cy="330" r="4"/><circle cx="690" cy="80" r="4"/>
+  </g>
+  <!-- edges from the edit: solid = import, dashed = changed together -->
+  <g stroke="#ffffff" stroke-width="2.2" stroke-opacity="0.75" fill="none">
+    <line x1="900" y1="200" x2="900" y2="70"/>
+    <line x1="900" y1="200" x2="976.4" y2="305.2"/>
+    <line x1="900" y1="200" x2="776.4" y2="159.8"/>
+    <line x1="900" y1="200" x2="1023.6" y2="159.8" stroke-dasharray="7 6"/>
+    <line x1="900" y1="200" x2="823.6" y2="305.2" stroke-dasharray="7 6"/>
+  </g>
+  <circle cx="900" cy="200" r="130" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+  <!-- the five files Potency asks about -->
+  <g stroke="#ffffff" stroke-width="2">
+    <circle cx="900" cy="70" r="13" fill="#4285F4"/>
+    <circle cx="1023.6" cy="159.8" r="13" fill="#EA4335"/>
+    <circle cx="976.4" cy="305.2" r="13" fill="#FBBC05"/>
+    <circle cx="823.6" cy="305.2" r="13" fill="#34A853"/>
+    <circle cx="776.4" cy="159.8" r="13" fill="#A98CF2"/>
+  </g>
+  <!-- the agent's edit -->
+  <circle cx="900" cy="200" r="22" fill="#ffffff"/>
+  <path transform="translate(900 200) scale(0.62)" d="M0,-24 C0,-10.1 10.1,0 24,0 C10.1,0 0,10.1 0,24 C0,10.1 -10.1,0 -24,0 C-10.1,0 0,-10.1 0,-24 Z" fill="url(#gem)"/>
+  <!-- wordmark -->
+  <g font-family="'Google Sans', 'Product Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff">
+    <text x="110" y="190" font-size="76" font-weight="500" letter-spacing="-0.5">Potency</text>
+    <text x="114" y="240" font-size="25" fill-opacity="0.85">Vouch for the patch, not the person.</text>
+    <text x="114" y="282" font-size="17" fill-opacity="0.6">A Gemma 4 coding-agent harness that asks about five files before it lets a patch go.</text>
+  </g>
+</svg>
