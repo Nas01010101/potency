@@ -161,7 +161,7 @@ uv run --with pytest python -m pytest -q tests
 ```bibtex
 @misc{potency2026,
   title  = {Potency: An Open-Source Gemma 4 Harness That Checks Whether a Patch Is Complete},
-  author = {{The Potency team}},
+  author = {Anas Elghoudane},
   year   = {2026},
   note   = {Kaggle Gemma 4 Developer Agent, paper track},
   url    = {https://github.com/Nas01010101/potency}
