@@ -146,7 +146,7 @@ The claims would be falsified by: a harness in which one-step fusion does not be
 
 ## 9. Reproducibility
 
-The repository (github.com/Nas01010101/potency, MIT) holds `potency/` (graph, gate, report, audit); the ADK agent and its standard-library `complete` skill; `replay/` (`fetch.sh`, `harness_premises.py` for Table 1, `walk.py` for Tables 3 and 4 and the benchmark); `bench/`; `live/` with the binding run, the grader (`grade_modal.py`), the E4B server and summary scripts; and 15 tests. The replay reads public SWE-bench predictions and runs on a laptop CPU. `walk.py` calls the shipped ranking code.
+The repository (github.com/Nas01010101/potency, MIT) holds `potency/` (graph, gate, report, audit); the ADK agent and its standard-library `complete` skill; `replay/` (`fetch.sh`, `harness_premises.py` for Table 1, `walk.py` for Figure 1, Table 3 and the benchmark); `bench/`; `live/` with the binding run, the grader (`grade_modal.py`), the E4B server and summary scripts; and 15 tests. The replay reads public SWE-bench predictions and runs on a laptop CPU. `walk.py` calls the shipped ranking code.
 
 ## References
 
