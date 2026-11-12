@@ -108,6 +108,10 @@ The walk alone trails one-step fusion by 0.16 to 0.26 (intervals excluding zero)
 
 *Table 4. Coverage is measured against the reference patch. Of the 18 finished runs without a patch, eight hit the step limit, seven ended on malformed replies, two submitted an empty patch and one container failed to start. The five unanswered files come from one run that hit the step limit after the check.*
 
+![Base Gemma 4 against Potency](https://raw.githubusercontent.com/Nas01010101/potency/main/assets/base_vs_potency.png)
+
+*Figure 3. Gemma 4 31B before and after the check, 31 graded runs: resolved tasks stay at 10, and 150 of 155 listed files get an edit or a reason (2 edited, 148 reasons).*
+
 The check changed no outcome: the final patch resolves exactly the tasks the first one did, none gained and none lost. Gemma 4 answers with reasons, not edits, and was never refused; of the twelve missed files the check listed, it edited one and explained eleven away. The reference patch is a poor judge of those reasons: two of the eleven come from runs that pass the tests, so the fix did not need that file. Figure 2 is one: the agent wrote that `views.py` needs nothing, and the tests agree. E4B doubted three of the other nine and neither of these two. Over all 148 reasons it doubted 18 of 104 in unresolved runs and 8 of 44 in resolved runs (Fisher p = 1.00), so it does not yet separate them; at temperature 0 a rerun repeats all 93 earlier verdicts.
 
 | Expected by the repository | Evidence | Status |
