@@ -57,7 +57,7 @@ An earlier advisory version only listed the files; in 22 Gemma 4 runs the agent 
 
 At the first submit, the harness sends one message. It lists each expected file with its evidence, for example "changed with `operations.py` in 8 of its last 17 commits", and asks the agent to open each file, grep it for the names it changed, and either change it or write `REASON <path>: <why no change is needed>`. A resubmission that leaves a file unanswered is refused with the list of open files, at most twice, with 10 more steps each time.
 
-The **change report** is rendered from the same data with no model call: one row per expected file with its evidence and status (Figure 2). `python -m potency.report` produces it for any patch on any Python repository and exits non-zero while a file is unanswered, so a project can run it in CI on incoming pull requests whoever wrote them.
+The **change report** is rendered from the same data with no model call: one row per expected file with its evidence and status (Figure 3). `python -m potency.report` produces it for any patch on any Python repository and exits non-zero while a file is unanswered, so a project can run it in CI on incoming pull requests whoever wrote them.
 
 A reason is the agent's own claim. `potency/audit.py` sends each one to a second, small model, Gemma 4 E4B, with the issue, the diff, and the lines of the skipped file that mention the names the diff changes. E4B answers HOLDS or DOUBT with a short note printed beside the reason. We serve E4B on one L40S.
 
@@ -110,9 +110,9 @@ The walk alone trails one-step fusion by 0.16 to 0.26 (intervals excluding zero)
 
 ![Base Gemma 4 against Potency](https://raw.githubusercontent.com/Nas01010101/potency/main/assets/base_vs_potency.png)
 
-*Figure 3. Gemma 4 31B before and after the check, 31 graded runs: resolved tasks stay at 10, and 150 of 155 listed files get an edit or a reason (2 edited, 148 reasons).*
+*Figure 2. Gemma 4 31B before and after the check, 31 graded runs: resolved tasks stay at 10, and 150 of 155 listed files get an edit or a reason (2 edited, 148 reasons).*
 
-The check changed no outcome: the final patch resolves exactly the tasks the first one did, none gained and none lost. Gemma 4 answers with reasons, not edits, and was never refused; of the twelve missed files the check listed, it edited one and explained eleven away. The reference patch is a poor judge of those reasons: two of the eleven come from runs that pass the tests, so the fix did not need that file. Figure 2 is one: the agent wrote that `views.py` needs nothing, and the tests agree. E4B doubted three of the other nine and neither of these two. Over all 148 reasons it doubted 18 of 104 in unresolved runs and 8 of 44 in resolved runs (Fisher p = 1.00), so it does not yet separate them; at temperature 0 a rerun repeats all 93 earlier verdicts.
+The check changed no outcome: the final patch resolves exactly the tasks the first one did, none gained and none lost. Gemma 4 answers with reasons, not edits, and was never refused; of the twelve missed files the check listed, it edited one and explained eleven away. The reference patch is a poor judge of those reasons: two of the eleven come from runs that pass the tests, so the fix did not need that file. Figure 3 is one: the agent wrote that `views.py` needs nothing, and the tests agree. E4B doubted three of the other nine and neither of these two. Over all 148 reasons it doubted 18 of 104 in unresolved runs and 8 of 44 in resolved runs (Fisher p = 1.00), so it does not yet separate them; at temperature 0 a rerun repeats all 93 earlier verdicts.
 
 | Expected by the repository | Evidence | Status |
 |---|---|---|
@@ -120,7 +120,7 @@ The check changed no outcome: the final patch resolves exactly the tasks the fir
 | `admindocs/middleware.py` | same two links | left alone: "Does not use trim_docstring." |
 | `utils/regex_helper.py` | linked by an import | left alone: "Does not use trim_docstring." |
 
-*Figure 2. Change report for django__django-12155 (3 of 5 rows). Edited: `django/contrib/admindocs/utils.py`. The patch resolves the task.*
+*Figure 3. Change report for django__django-12155 (3 of 5 rows). Edited: `django/contrib/admindocs/utils.py`. The patch resolves the task.*
 
 ## 7. Related work
 
