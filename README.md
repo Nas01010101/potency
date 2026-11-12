@@ -27,6 +27,10 @@ MSA=/path/to/mini-swe-agent VLLM_BASE=https://<your-vllm> potency run --workers 
 
 `potency report` exits 1 while a listed file has neither a change nor a reason, so it can gate a pull request in CI.
 
+## Architecture
+
+<p align="center"><img src="assets/architecture.png" alt="Potency harness layers: agent loop, gate, binding check, change report, reason checker" width="100%"></p>
+
 ## What Potency says to the agent
 
 On the first submit:
@@ -125,7 +129,7 @@ The gate fires on every submission. No confidence threshold separated partial fr
 ```bash
 replay/fetch.sh                                     # SWE-bench Verified, 17 submissions, repos (about 2 GB)
 uv run --with pandas --with pyarrow replay/harness_premises.py
-SETS=data/preds,data/preds_open uv run --with pandas --with pyarrow --with scipy python replay/walk.py   # Tables 3 and 4, both sets
+SETS=data/preds,data/preds_open uv run --with pandas --with pyarrow --with scipy python replay/walk.py   # Figure 1 and Table 3, both sets
 SETS=data/preds,data/preds_open uv run --with pandas --with pyarrow --with scipy python replay/walk.py --summary   # recompute from data/walk_rows.csv
 ```
 
@@ -160,7 +164,7 @@ uv run --with pytest python -m pytest -q tests
 
 ```bibtex
 @misc{potency2026,
-  title  = {Potency: An Open-Source Gemma 4 Harness That Checks Whether a Patch Is Complete},
+  title  = {Potency: Repository-Grounded Completion Checks for Coding Agents},
   author = {Anas Elghoudane},
   year   = {2026},
   note   = {Kaggle Gemma 4 Developer Agent, paper track},

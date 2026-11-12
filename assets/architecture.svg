@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#44506A"/></marker>
+  </defs>
+  <rect width="1600" height="700" fill="#ffffff"/>
+
+  <text x="20" y="40" font-size="26" font-weight="700" fill="#1F2937">Potency harness</text>
+  <text x="262" y="40" font-size="17" fill="#5B6472">completion check at submit, around a Gemma 4 coding agent</text>
+
+  <!-- panels -->
+  <g fill="#F3F6FC" stroke="#D3DCF0" stroke-width="1.5">
+    <rect x="20" y="70" width="175" height="495" rx="16"/>
+    <rect x="222" y="70" width="305" height="495" rx="16"/>
+    <rect x="555" y="70" width="350" height="495" rx="16"/>
+    <rect x="935" y="70" width="260" height="495" rx="16"/>
+    <rect x="1225" y="70" width="355" height="495" rx="16"/>
+  </g>
+  <g font-size="15" font-weight="700" letter-spacing="0.8" fill="#1F56C4">
+    <text x="36" y="98">INPUT</text>
+    <text x="238" y="98">AGENT LOOP</text>
+    <text x="571" y="98">GATE <tspan font-weight="400" letter-spacing="0" font-size="14" fill="#5B6472" font-family="Menlo, Consolas, monospace">potency/gate.py</tspan></text>
+    <text x="951" y="98">BINDING CHECK</text>
+    <text x="1241" y="98">OUTPUT</text>
+  </g>
+
+  <!-- boxes: shared look -->
+  <g fill="#ffffff" stroke="#1F56C4" stroke-width="1.8">
+    <rect x="32" y="190" width="151" height="70" rx="12"/>
+    <rect x="32" y="315" width="151" height="100" rx="12"/>
+    <rect x="236" y="120" width="277" height="120" rx="12"/>
+    <rect x="236" y="256" width="277" height="80" rx="12"/>
+    <rect x="236" y="352" width="277" height="86" rx="12" stroke-dasharray="7 5"/>
+    <rect x="580" y="112" width="288" height="52" rx="12"/>
+    <rect x="580" y="452" width="288" height="98" rx="12" stroke="#A98CF2" stroke-width="2.4"/>
+    <rect x="950" y="120" width="230" height="116" rx="12"/>
+    <rect x="1240" y="120" width="325" height="204" rx="12"/>
+    <rect x="1240" y="345" width="325" height="95" rx="12"/>
+    <rect x="1240" y="480" width="325" height="56" rx="12"/>
+  </g>
+  <!-- ranker group -->
+  <rect x="580" y="174" width="288" height="256" rx="12" fill="none" stroke="#9AA6C0" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <g fill="#ffffff" stroke="#D3DCF0" stroke-width="1.5">
+    <rect x="592" y="204" width="264" height="50" rx="10"/>
+    <rect x="592" y="262" width="264" height="100" rx="10"/>
+    <rect x="592" y="370" width="264" height="50" rx="10"/>
+  </g>
+  <!-- ranker colour bars -->
+  <rect x="592" y="204" width="6" height="50" rx="3" fill="#4285F4"/>
+  <rect x="592" y="262" width="6" height="100" rx="3" fill="#EA4335"/>
+  <rect x="592" y="370" width="6" height="50" rx="3" fill="#FBBC05"/>
+  <!-- outcome boxes -->
+  <rect x="1010" y="270" width="170" height="60" rx="12" fill="#ffffff" stroke="#34A853" stroke-width="2.2"/>
+  <rect x="950" y="360" width="230" height="100" rx="12" fill="#ffffff" stroke="#EA4335" stroke-width="2.2"/>
+
+  <!-- offline evaluation side panel -->
+  <rect x="1225" y="596" width="355" height="98" rx="14" fill="#ffffff" stroke="#9AA6C0" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- arrows -->
+  <g fill="none" stroke="#44506A" stroke-width="2" marker-end="url(#ah)">
+    <path d="M183 215 H234"/>
+    <path d="M183 365 H209 V215" marker-end="none"/>
+    <path d="M513 137 H578"/>
+    <path d="M724 164 V172"/>
+    <path d="M724 430 V450"/>
+    <path d="M868 520 H920 V180 H948"/>
+    <path d="M1095 236 V268"/>
+    <path d="M975 236 V358"/>
+    <path d="M1180 300 H1238"/>
+    <path d="M1402 324 V343"/>
+    <path d="M1402 440 V478"/>
+    <path d="M1065 460 V598 H370 V567" stroke="#EA4335"/>
+  </g>
+  <text x="716" y="588" font-size="15" fill="#5B6472" text-anchor="middle">refused: the agent continues</text>
+
+  <!-- text -->
+  <g fill="#1F2937" font-size="14">
+    <!-- input -->
+    <text x="44" y="217" font-size="16" font-weight="700">Issue text</text>
+    <text x="44" y="239">problem statement</text>
+    <text x="44" y="343" font-size="16" font-weight="700">Repository</text>
+    <text x="44" y="365">at the base commit</text>
+
+    <!-- agent -->
+    <g transform="translate(262 150)"><circle r="13" fill="#ffffff" stroke="#1F56C4" stroke-width="2"/><path transform="scale(0.8)" d="M-9,0 L-3,6 L9,-7" fill="none" stroke="#1F56C4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text x="286" y="156" font-size="17" font-weight="700">Gemma 4 31B</text>
+    <text x="250" y="182">QAT w4a16, vLLM, one H100</text>
+    <text x="250" y="204">driven by mini-swe-agent,</text>
+    <text x="250" y="224">bash actions in the repository</text>
+    <text x="250" y="282" font-size="15" font-weight="700">Tool: complete skill</text>
+    <text x="250" y="304">lists the files tied to the</text>
+    <text x="250" y="322">current edit</text>
+    <text x="250" y="378" font-size="15" font-weight="700">Google ADK agent variant</text>
+    <text x="250" y="400">thinking capped at 1,024 tokens;</text>
+    <text x="250" y="420">repo test command in the prompt</text>
+    <line x1="238" y1="468" x2="511" y2="468" stroke="#C3CCE0" stroke-width="1.5"/>
+    <text x="250" y="496" font-style="italic" fill="#5B6472">Planning and context trimming:</text>
+    <text x="250" y="516" font-style="italic" fill="#5B6472">unchanged from the base scaffold</text>
+
+    <!-- gate -->
+    <text x="594" y="134" font-size="15" font-weight="700">Intercepts the first submit</text>
+    <text x="594" y="154">the agent gets 20 extra steps</text>
+    <text x="594" y="192" fill="#5B6472">three rankers over the repository</text>
+    <text x="608" y="225" font-size="15" font-weight="700">AST import graph</text>
+    <text x="608" y="245">linked to the edit by imports</text>
+    <text x="608" y="283" font-size="15" font-weight="700">Co-change history</text>
+    <text x="608" y="303">last 3,000 non-merge commits</text>
+    <text x="608" y="322">before the base, skipping commits</text>
+    <text x="608" y="341">that touch more than 30 files</text>
+    <text x="608" y="391" font-size="15" font-weight="700">BM25 over the issue text</text>
+    <text x="608" y="411">ranks source files against it</text>
+    <text x="594" y="478" font-size="16" font-weight="700">Reciprocal rank fusion, k = 60</text>
+    <text x="594" y="500">keeps the top 5 files the patch did</text>
+    <text x="594" y="520">not edit; test files are excluded</text>
+
+    <!-- binding -->
+    <text x="964" y="142" font-size="15" font-weight="700">Binding check</text>
+    <text x="964" y="164">Every listed file must be in the</text>
+    <text x="964" y="184">patch or have a line</text>
+    <text x="964" y="208" font-family="Menlo, Consolas, monospace" font-size="14">REASON &lt;path&gt;: ...</text>
+    <text x="1024" y="294" font-size="15" font-weight="700">All answered</text>
+    <text x="1024" y="316">submission accepted</text>
+    <text x="964" y="384" font-size="15" font-weight="700">A file is unanswered</text>
+    <text x="964" y="406">submission refused; the agent</text>
+    <text x="964" y="426">gets 10 more steps, up to</text>
+    <text x="964" y="446">2 refusals</text>
+
+    <!-- output -->
+    <text x="1254" y="143" font-size="16" font-weight="700">Change report</text>
+    <text x="1254" y="165">one row per listed file, with its</text>
+    <text x="1254" y="183">evidence (import, co-change, issue):</text>
+    <text x="1278" y="209">edited</text>
+    <text x="1278" y="231">left alone, with its reason</text>
+    <text x="1278" y="253">unanswered</text>
+    <line x1="1254" y1="268" x2="1551" y2="268" stroke="#C3CCE0" stroke-width="1.5"/>
+    <text x="1254" y="291" font-family="Menlo, Consolas, monospace" font-size="14">potency report</text>
+    <text x="1254" y="310">exits 1 while a file is unanswered</text>
+
+    <g transform="translate(1266 372)"><circle r="13" fill="#ffffff" stroke="#1F56C4" stroke-width="2"/><path transform="scale(0.8)" d="M-9,0 L-3,6 L9,-7" fill="none" stroke="#1F56C4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+    <text x="1290" y="378" font-size="16" font-weight="700">Reason checker</text>
+    <text x="1254" y="404">Gemma 4 E4B on one L40S</text>
+    <text x="1254" y="424">marks each reason HOLDS or DOUBT</text>
+    <text x="1254" y="513" font-size="16" font-weight="700">Maintainer reads the report</text>
+
+    <!-- offline evaluation -->
+    <text x="1241" y="618" font-size="15" font-weight="700" fill="#5B6472" letter-spacing="0.8">OFFLINE EVALUATION</text>
+    <text x="1241" y="642">gate replay on 780 incomplete patches</text>
+    <text x="1241" y="661">from 17 public harnesses</text>
+    <text x="1241" y="679" font-family="Menlo, Consolas, monospace" font-size="14" fill="#5B6472">bench/missing_file.jsonl</text>
+  </g>
+  <!-- status dots -->
+  <circle cx="1263" cy="204" r="6" fill="#34A853"/>
+  <circle cx="1263" cy="226" r="6" fill="#FBBC05"/>
+  <circle cx="1263" cy="248" r="6" fill="#EA4335"/>
+</svg>

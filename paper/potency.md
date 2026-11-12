@@ -1,6 +1,6 @@
-# Potency: An Open-Source Gemma 4 Harness That Checks Whether a Patch Is Complete
+# Potency: Repository-Grounded Completion Checks for Coding Agents
 
-*It ranks the files tied to an edit by a joined import and commit-history graph, and refuses submission until each of the top five is changed or explained to the maintainer*
+*An open-source Gemma 4 harness that ranks the files tied to an edit by a joined import and commit-history graph, and refuses submission until each of the top five is changed or explained to the maintainer*
 
 ## Abstract
 
@@ -57,7 +57,7 @@ An earlier advisory version only listed the files; in 22 Gemma 4 runs the agent 
 
 At the first submit, the harness sends one message. It lists each expected file with its evidence, for example "changed with `operations.py` in 8 of its last 17 commits", and asks the agent to open each file, grep it for the names it changed, and either change it or write `REASON <path>: <why no change is needed>`. A resubmission that leaves a file unanswered is refused with the list of open files, at most twice, with 10 more steps each time.
 
-The **change report** is rendered from the same data with no model call: one row per expected file with its evidence and status (Figure 1). `python -m potency.report` produces it for any patch on any Python repository and exits non-zero while a file is unanswered, so a project can run it in CI on incoming pull requests whoever wrote them.
+The **change report** is rendered from the same data with no model call: one row per expected file with its evidence and status (Figure 2). `python -m potency.report` produces it for any patch on any Python repository and exits non-zero while a file is unanswered, so a project can run it in CI on incoming pull requests whoever wrote them.
 
 A reason is the agent's own claim. `potency/audit.py` sends each one to a second, small model, Gemma 4 E4B, with the issue, the diff, and the lines of the skipped file that mention the names the diff changes. E4B answers HOLDS or DOUBT with a short note printed beside the reason. We serve E4B on one L40S.
 
@@ -71,16 +71,9 @@ The replay yields a task that Park et al. (2017) posed on human patches and that
 
 For each such run we rebuild the graph at the base commit, seed it with the run's own edited files, and ask whether the top 5 contain a reference file the run missed.
 
-| Ranking (top 5) | Set A | Set B |
-|---|---|---|
-| Imports | 0.342 | 0.350 |
-| History | 0.362 | 0.378 |
-| Issue BM25 | 0.398 | 0.399 |
-| **One-step fusion of all three** | **0.582** | **0.580** |
-| Fusion − BM25, 95% CI over tasks | +0.184 [0.048, 0.323] | +0.181 [0.055, 0.308] |
-| Runs / tasks | 354 / 64 | 426 / 69 |
+![Top-5 hit rate by ranking](https://raw.githubusercontent.com/Nas01010101/potency/main/assets/replay_rankers.png)
 
-*Table 3. Share of unresolved runs missing a reference file where the ranking names one. 4,000 task-clustered bootstrap resamples.*
+*Figure 1. Share of unresolved runs missing a reference file where the ranking names one (354 runs, 64 tasks in set A; 426 runs, 69 tasks in set B). Fusion minus BM25: +0.184 [0.048, 0.323] and +0.181 [0.055, 0.308], 95% CI over 4,000 task-clustered bootstrap resamples.*
 
 Fusion is above BM25 in each of the 17 harnesses (point estimates), with per-harness rates from 0.53 to 0.65 in set A and 0.48 to 0.63 in set B. It is 0.58 on OpenHands with Claude Opus 4.5, which resolves 78% of all tasks.
 
@@ -92,10 +85,10 @@ Fusion is above BM25 in each of the 17 harnesses (point estimates), with per-har
 | Walk, restart 0.5 | 0.384 | 0.415 |
 | Walk 0.15 + BM25 | 0.534 | 0.585 |
 | Walk 0.5 + BM25 | 0.585 | 0.624 |
-| One-step fusion (Table 3) | 0.582 | 0.580 |
+| One-step fusion (Figure 1) | 0.582 | 0.580 |
 | Walk 0.5 + BM25 − one-step, 95% CI | +0.003 [−0.112, +0.108] | +0.045 [−0.044, +0.138] |
 
-*Table 4. Same runs as Table 3; 2,000 task-clustered resamples.*
+*Table 3. Same runs as Figure 1; 2,000 task-clustered resamples.*
 
 The walk alone trails one-step fusion by 0.16 to 0.26 (intervals excluding zero) and is close to issue BM25; fused with BM25 it is not distinguishable from one-step fusion. Our untested reading: missed files sit one edge from the edit, and longer walks spread weight onto hubs. One-step fusion stays the default.
 
@@ -113,9 +106,9 @@ The walk alone trails one-step fusion by 0.16 to 0.26 (intervals excluding zero)
 | Reasons on reference files: run resolves / does not | 2 / 9 |
 | E4B doubts: those 2 / those 9 / reasons on other files | 0 / 3 / 23 of 137 |
 
-*Table 5. Coverage is measured against the reference patch. Of the 18 finished runs without a patch, eight hit the step limit, seven ended on malformed replies, two submitted an empty patch and one container failed to start. The five unanswered files come from one run that hit the step limit after the check.*
+*Table 4. Coverage is measured against the reference patch. Of the 18 finished runs without a patch, eight hit the step limit, seven ended on malformed replies, two submitted an empty patch and one container failed to start. The five unanswered files come from one run that hit the step limit after the check.*
 
-The check changed no outcome: the final patch resolves exactly the tasks the first one did, none gained and none lost. Gemma 4 answers with reasons, not edits, and was never refused; of the twelve missed files the check listed, it edited one and explained eleven away. The reference patch is a poor judge of those reasons: two of the eleven come from runs that pass the tests, so the fix did not need that file. Figure 1 is one: the agent wrote that `views.py` needs nothing, and the tests agree. E4B doubted three of the other nine and neither of these two. Over all 148 reasons it doubted 18 of 104 in unresolved runs and 8 of 44 in resolved runs (Fisher p = 1.00), so it does not yet separate them; at temperature 0 a rerun repeats all 93 earlier verdicts.
+The check changed no outcome: the final patch resolves exactly the tasks the first one did, none gained and none lost. Gemma 4 answers with reasons, not edits, and was never refused; of the twelve missed files the check listed, it edited one and explained eleven away. The reference patch is a poor judge of those reasons: two of the eleven come from runs that pass the tests, so the fix did not need that file. Figure 2 is one: the agent wrote that `views.py` needs nothing, and the tests agree. E4B doubted three of the other nine and neither of these two. Over all 148 reasons it doubted 18 of 104 in unresolved runs and 8 of 44 in resolved runs (Fisher p = 1.00), so it does not yet separate them; at temperature 0 a rerun repeats all 93 earlier verdicts.
 
 | Expected by the repository | Evidence | Status |
 |---|---|---|
@@ -123,7 +116,7 @@ The check changed no outcome: the final patch resolves exactly the tasks the fir
 | `admindocs/middleware.py` | same two links | left alone: "Does not use trim_docstring." |
 | `utils/regex_helper.py` | linked by an import | left alone: "Does not use trim_docstring." |
 
-*Figure 1. Change report for django__django-12155 (3 of 5 rows). Edited: `django/contrib/admindocs/utils.py`. The patch resolves the task.*
+*Figure 2. Change report for django__django-12155 (3 of 5 rows). Edited: `django/contrib/admindocs/utils.py`. The patch resolves the task.*
 
 ## 7. Related work
 
@@ -137,7 +130,7 @@ The check changed no outcome: the final patch resolves exactly the tasks the fir
 | Agent Governance Manifest (arXiv:2607.15769) | Declared contributor evidence | Pull request, for the reviewer | No measurement on agent patches |
 | Potency | Imports + history + issue text, seeded on the agent's edit | Submit, binding; report to the maintainer | 780 patches, 17 harnesses; live binding run |
 
-*Table 6. Closest prior work.*
+*Table 5. Closest prior work.*
 
 We know of no harness that makes the repository's record binding at submit and writes the agent's answers into the reviewer's report, nor of a measurement of such a check across harnesses.
 
