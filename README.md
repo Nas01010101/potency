@@ -1,7 +1,8 @@
 <p align="center"><img src="assets/banner.png" alt="Potency: an open-source coding-agent harness for Gemma 4" width="100%"></p>
 
 <p align="center">
-  <a href="paper/potency.pdf">Paper</a>
+  <a href="paper/README.md">Main paper (in progress)</a> ·
+  <a href="https://github.com/Nas01010101/potency/blob/kaggle-submission/paper/potency.pdf">Kaggle paper</a>
 </p>
 
 <p align="center">
