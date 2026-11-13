@@ -63,7 +63,11 @@ On the 71 SWE-bench Verified tasks whose reference fix touches two or more sourc
 | A | 8 (Agentless, AutoCodeRover, SWE-agent, Lingxi, SWE-Exp, FrogBoss, OpenHands, Sonar) | 568 | 72.2% | 26.3% | 59.8% |
 | B | 9 open-weight (SWE-RL Llama 3 70B, SWE-Fixer, Devstral, Kimi K2, GLM 4.5/4.6, Qwen3-Coder 30B/480B, Lingxi) | 629 | 70.4% | 22.3% | 53.7% |
 
+<p align="center"><img src="assets/resolve_gap.png" alt="Resolve rate when some or every reference file is edited" width="70%"></p>
+
 Replayed on the unresolved runs that edited a source file and missed a gold file, the gate's top 5 contains a gold file the harness missed in 58.2% (Set A, 354 runs) and 58.0% (Set B, 426 runs) of cases, against 39.8% and 39.9% for BM25 on the issue alone. Fused minus BM25 is +0.184 [0.048, 0.323] and +0.181 [0.055, 0.308] (95% task-clustered bootstrap, 4,000 resamples). Fusion is above BM25 for each of the 17 harnesses (point estimates). These numbers come from `replay/walk.py`, which calls `potency.gate`; `completion_recovery.py` is an earlier standalone version of the same ranking and gives 0.565 and 0.575.
+
+<p align="center"><img src="assets/replay_rankers.png" alt="Top-5 rate per ranker on both sets (Figure 1 of the paper)" width="80%"></p>
 
 ## Layout
 
@@ -75,9 +79,9 @@ Replayed on the unresolved runs that edited a source file and missed a gold file
 | `potency/audit.py` | reason checker: a small model answers HOLDS or DOUBT for each reason, standard library only |
 | `agents/potency/` | Google ADK agent: prompt, sampling (thinking budget 1,024), and the `complete` skill |
 | `agents/potency/skills/complete/` | stdlib-only working-tree version of the gate, run by the agent before `submit_patch` |
-| `replay/` | `fetch.sh` (data), `harness_premises.py`, `completion_recovery.py`, `per_harness.py`, `walk.py` |
+| `replay/` | `fetch.sh` (data), `harness_premises.py`, `completion_recovery.py`, `per_harness.py`, `walk.py`; `plot_rankers.py` and `plot_premise.py` draw the charts |
 | `bench/` | `missing_file.jsonl` (780 rows) and `score.py` |
-| `live/` | live runs with mini-swe-agent and Gemma 4 31B on vLLM (Modal); `bind_summary.py`; `grade_prep.py`, `grade_modal.py` and `graded_summary.py` for SWE-bench grading; `vllm_small.py` and `audit_run.py` for the E4B checker |
+| `live/` | live runs with mini-swe-agent and Gemma 4 31B on vLLM (Modal); `bind_summary.py`; `grade_prep.py`, `grade_modal.py` and `graded_summary.py` for SWE-bench grading; `vllm_small.py` and `audit_run.py` for the E4B checker; `plot_base_vs_potency.py` draws the first-against-final chart |
 | `tests/` | gate, report, scorer and skill tests on a synthetic git repository |
 
 ## Use the gate on a repository
@@ -151,6 +155,20 @@ uv run --with swebench==4.1.0 --with modal==1.6.4 --with datasets \
 Two servers can share one task list: deploy a second with `APP_NAME=g4-vllm-b modal deploy live/vllm_app.py` and start its client with `--reverse`, which takes tasks from the end. `live/graded_summary.py` joins the grades with the binding run and the E4B audit (resolved first and final patches, and E4B verdicts on reasons split by whether the run resolves).
 
 `live/grade_modal.py` runs each instance's SWE-bench eval script in a Modal sandbox built from the prebuilt `swebench/sweb.eval.*` image and grades the log with swebench's parser; swebench's own Modal runner fails with current Modal (4.1.0 calls a retired sandbox filesystem API, 5.0.2 reads a different dataset schema).
+
+### Result of the binding run
+
+Gemma 4 31B on the 71 multi-file tasks: 49 runs finished, 31 submitted a patch and were graded.
+
+| | First patch | Final patch, after the check |
+|---|---|---|
+| Resolved by the SWE-bench tests | 10 of 31 | 10 of 31 |
+| Missed reference files the check listed, answered | 0 of 12 | 12 of 12 (1 edited, 11 with a reason) |
+| All listed files answered | 0 of 155 | 150 of 155 (2 edited, 148 with a reason) |
+
+<p align="center"><img src="assets/base_vs_potency.png" alt="Gemma 4 31B first patch against final patch with Potency (Figure 2 of the paper)" width="80%"></p>
+
+The check changed no graded outcome; it changes the report the maintainer reads, not the patch. Gemma 4 E4B doubted 18 of 104 reasons in unresolved runs and 8 of 44 in resolved runs, so it does not separate them.
 
 Pinned versions: mini-swe-agent 2.4.6, swebench 4.1.0 (grading), modal 1.6.4, vllm 0.19.1.
 

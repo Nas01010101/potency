@@ -14,3 +14,5 @@ live/runs/eval/*
 !live/runs/eval/gold/
 live/runs/eval/*/*
 !live/runs/eval/*/report.json
+*.egg-info/
+uv.lock
